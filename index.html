@@ -1,0 +1,186 @@
+<!--
+Authors: Ethan Ai, Kushal Saini
+Course: COMP 3612 - 001
+Assignment 2
+-->
+
+<!DOCTYPE html>
+
+<head>
+  <link href="asg2-mainstyles.css" rel="stylesheet">
+  <script src="assign2.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <h1 class="title is-1">Songify</h1>
+      </div>
+      <div class="navbar-start topbar">
+        <button class='button' onclick="togglePage('home-view')">Home</button>
+        <button class='button' onclick="togglePage('search-view')">Search/Browse Songs</button>
+        <button class=' button' onclick="togglePage('playlist-view')">Playlist</button>
+        <div id="credits">
+          <button class='button' onmouseover="showCredits()">Credits</button>
+          <ul class="popup dropdown-content">
+            <li>
+              <div class="dropdown-item">Ethan Ai</div>
+            </li>
+            <li>
+              <div class="dropdown-item">Kushal Saini</div>
+            </li>
+            <li><a href="https://github.com/ethan50876/COMP3612-ASG2" class="dropdown-item">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Home View -->
+  <section id="home-view" class="show">
+    <div class="columns has-background-light has-text-black">
+      <div class="column" id="top-genres">
+        <h2 class="title is-3">Top Genres</h2>
+        <!-- Display the top 15 genres with links -->
+        <!-- Example: <a href="#genre1">Genre 1</a> -->
+        <ul id="top-genres-list"></ul>
+      </div>
+      <div class="column" id="top-artists">
+        <h2 class="title is-3">Top Artists</h2>
+        <!-- Display the top 15 artists with links -->
+        <!-- Example: <a href="#artist1">Artist 1</a> -->
+        <ul id="top-artists-list"></ul>
+      </div>
+      <div class="column" id="most-popular-songs">
+        <h2 class="title is-3">Most Popular Songs</h2>
+        <!-- Display the top 15 songs with links -->
+        <!-- Example: <a href="#song1">Song 1</a> -->
+        <ul id="top-songs-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search/Browse Songs View -->
+  <section id="search-view">
+    <div id="search-view-top" class="has-background-light">
+      <h2 class="title is-3">Search/Browse Songs</h2>
+      <div class="search-engine">
+        <!-- Title Search -->
+        <input type="radio" id="title-radio" name="search-field" checked>
+        <label class="label" for="title">Title:</label>
+        <input class="input" type="text" id="title" placeholder="Type here">
+        <label for="title-radio" onclick="updateRadioButtons('title')"></label>
+
+        <!-- Artist Search -->
+        <input type="radio" id="artist-radio" name="search-field">
+        <label class="label" for="artist">Artist:</label>
+        <select class="select" id="artist">
+          <option value="" selected>Pick one</option>
+        </select>
+        <label for="artist-radio" onclick="updateRadioButtons('artist')"></label>
+
+        <!-- Genre Search -->
+        <input type="radio" id="genre-radio" name="search-field">
+        <label class="label" for="genre">Genre:</label>
+        <select class="select" id="genre">
+          <option value="" selected>Pick one</option>
+        </select>
+        <label for="genre-radio" onclick="updateRadioButtons('genre')"></label>
+
+        <button class="button" onclick="search()">Search</button>
+        <button class="button" onclick="resetSearch()">Reset</button>
+      </div>
+    </div>
+
+    <div id="search-body">
+      <div class="song-list">
+        <div class="list-container" id="title-container">
+          <h3 class="title is-4">Title</h3>
+          <button class="sort-button button is-small" data-field="title" onclick="sortList('title')">Sort</button>
+          <ul id="results-list"></ul>
+        </div>
+  
+        <div class="list-container" id="artist-container">
+          <h3 class="title is-4">Artist</h3>
+          <button class="sort-button button is-small" data-field="artist" onclick="sortList('artist')">Sort</button>
+          <ul id="artist-list"></ul>
+        </div>
+  
+        <div class="list-container" id="genre-container">
+          <h3 class="title is-4">Genre</h3>
+          <button class="sort-button button is-small" data-field="genre" onclick="sortList('genre')">Sort</button>
+          <ul id="genre-list"></ul>
+        </div>
+  
+        <div class="list-container" id="year-container">
+          <h3 class="title is-4">Year</h3>
+          <button class="sort-button button is-small" data-field="year" onclick="sortList('year')">Sort</button>
+          <ul id="year-list"></ul>
+        </div>
+        <div id="playlist-buttons"></div>
+      </div>
+    </div>
+
+  </section>
+  <div id="snackbar">Song added to playlist!</div>
+  <div id="tooltip" class="tooltip-container"></div>
+
+  <!-- Single Song View -->
+  <section id="single-song-view">
+    <div class="columns">
+      <div class="column">
+        <h2 class="title is-3"></h2>
+      </div>
+      <div class="column"><button class="button" onclick="closeSingleSongView()">Close</button></div>
+    </div>
+    <!-- Song Details Div -->
+    <div id="song-details"></div>
+    <!-- Radar Chart Div -->
+    <div id="radar-chart-container">
+      <canvas id="radar-chart"></canvas>
+    </div>
+  </section>
+
+  <!-- Playlist View -->
+  <section id="playlist-view">
+    <h2 class="title is-3">Playlist</h2>
+    <!-- Display playlist contents with options to remove songs and clear the playlist -->
+    <!-- Display summary info about the playlist -->
+
+    <ul class="list" id="playlist-info">
+      <li id="playlist-len"></li>
+      <li id="playlist-ranking"></li>
+    </ul>
+    <table class="table" id="playlist-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Artist</th>
+          <th>Genre</th>
+          <th>Year</th>
+          <th>Popularity</th>
+          <th><button class="button is-small" onClick="clearPlaylist()">Remove All</button></th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <!-- Your footer content goes here -->
+    <p>Authors: Ethan Ai, Kushal Saini</p>
+  </footer>
+  <div id="snackbar" class="snackbar"></div>
+
+</body>
+
+</html>

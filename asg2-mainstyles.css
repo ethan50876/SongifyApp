@@ -1,0 +1,176 @@
+/*
+Styles for assign2 file
+*/
+
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+html {
+    margin: 0;
+    padding: 5px;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav h1 {
+    padding-left: 5px;
+}
+
+.topbar > * {
+    display: inline;
+    list-style: none;
+    margin: 10px;
+}
+
+section {
+    display: none !important;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.show {
+    display: block !important;
+}
+
+button:hover {
+    background-color: turquoise;
+}
+
+.search-engine > *{
+    display: inline;
+}
+
+#search-view-top {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#search-body {
+    padding: 15px;
+}
+
+#search-body h3 {
+    display: inline;
+}
+
+#title {
+    width: 200px;
+    height: 35px;
+}
+
+.song-list {
+    display: flex;
+}
+
+.song-list ul {
+    list-style: none;
+}
+
+ul.li {
+    padding: 10px;
+}
+
+#playlist-buttons {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin-top: 27px;
+    
+}
+#playlist-buttons button {
+    margin-left: 20px;
+    margin-top: 6.01px;
+    font-size: 10px;
+    border: solid gray 1px;
+    width: 30px;
+}
+
+#results-list, #artist-list {
+    width: 250px;
+}
+
+#search-body li:nth-child(even), 
+#results-list *:nth-child(even),
+#playlist-buttons button:nth-child(even){
+    background-color: lightgrey;
+}
+
+#playlist-buttons button:hover {
+    cursor: pointer;
+    background-color: turquoise;
+}
+
+#home-view li{
+    font-size: large;
+    padding: 5px;
+}
+
+#playlist-table td:first-child{
+    text-decoration: underline;
+}
+
+#playlist-table td:first-child:hover, 
+#home-view li:hover,
+#results-list li:hover {
+    color: teal;
+    cursor: pointer;
+}
+
+#single-song-view span button, #single-song-view span h2{
+    display: inline;
+}
+
+#radar-chart-container {
+    width: 600px;
+    height: 600px;
+}
+
+#snackbar {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 18%;
+    text-align: center;
+    padding: 10px;
+    z-index: 1;
+    font-size: 20px;
+    border: 1px solid grey;
+    background-color: aquamarine;
+}
+
+
+
+.song-list {
+    overflow-y: scroll;
+    max-height: 600px;
+}
+
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    width: max-content;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    z-index: 1;
+}
+
+.tooltip-container:hover .tooltip {
+    visibility: visible;
+}
+
+.footer {
+    background-color: hsl(171, 100%, 41%);
+}
