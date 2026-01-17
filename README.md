@@ -1,4 +1,4 @@
-Song Application by Ethan Ai @  github.com/ethan50876
+Song Application by Ethan Ai and Kushal Saini @  github.com/ethan50876
 
 Originated as a Web Development course project
 
