@@ -1,3 +1,8 @@
+Github pages deployment link:  
+https://ethan50876.github.io/SongifyApp/
+https://ethan50876.github.io/SongifyApp/
+https://ethan50876.github.io/SongifyApp/
+
 Song Application by Ethan Ai and Kushal Saini @  github.com/ethan50876
 
 Originated as a Web Development course project
