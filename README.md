@@ -1,6 +1,8 @@
 Github pages deployment link:  
 https://ethan50876.github.io/SongifyApp/
+
 https://ethan50876.github.io/SongifyApp/
+
 https://ethan50876.github.io/SongifyApp/
 
 Song Application by Ethan Ai and Kushal Saini @  github.com/ethan50876
@@ -15,7 +17,8 @@ Songify is a feature-rich web application that allows users to browse, search, a
 
 To Run
 
-Deploy index at any browser or local host.
+Click on the above pages link
 
-Refresh page once.
+Since this web app is deployed using github pages and the API is provided by a professor, it is not considered by most browsers to be safe and will not cache, load and display the song data. 
 
+To fix this, turn off the tracking prevention and safety warnings and reload the page
