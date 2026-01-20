@@ -732,8 +732,8 @@ document.addEventListener('DOMContentLoaded', function () {
       };
       
       search();
-      initializeHome();
       calculatePlaylistInfo();
+      initializeHome();
     } else {
       // Data not loaded yet, check again in 50ms
       setTimeout(waitForData, 50);
