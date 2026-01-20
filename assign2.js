@@ -737,3 +737,43 @@ function calculatePlaylistInfo() {
 
 
 
+// initialization functions
+document.addEventListener('DOMContentLoaded', function () {
+  // Function to initialize the app after data is loaded
+  function initializeApp() {
+    sortedSongsMap = {
+      title: [...parsedSongData],
+      artist: [...parsedSongData],
+      genre: [...parsedSongData],
+      year: [...parsedSongData],
+    };
+    
+    search();
+    initializeHome();
+    calculatePlaylistInfo();
+  }
+
+  // Load songs and then initialize
+  const storedSongs = localStorage.getItem('songs.json');
+
+  if (!storedSongs) {
+    fetch(api)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        localStorage.setItem('songs.json', JSON.stringify(data));
+        parsedSongData = data;
+        initializeApp(); // ← Initialize after data loads
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  } else {
+    parsedSongData = JSON.parse(storedSongs);
+    initializeApp(); // ← Initialize immediately if cached
+  }
+});
