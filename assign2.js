@@ -81,6 +81,23 @@ fetch('artists.json')
 
 // Song API fetching/parsing to JS object
 let parsedSongData;
+let sortedSongsMap;
+
+// Function to initialize the app after data is loaded
+function initializeApp() {
+  sortedSongsMap = {
+    title: [...parsedSongData],
+    artist: [...parsedSongData],
+    genre: [...parsedSongData],
+    year: [...parsedSongData],
+  };
+  
+  search();
+  initializeHome();
+  calculatePlaylistInfo();
+}
+
+// Load songs and then initialize
 const storedSongs = localStorage.getItem('songs.json');
 
 if (!storedSongs) {
@@ -94,22 +111,15 @@ if (!storedSongs) {
     .then(data => {
       localStorage.setItem('songs.json', JSON.stringify(data));
       parsedSongData = data;
+      initializeApp(); // ← Initialize after data loads
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
 } else {
   parsedSongData = JSON.parse(storedSongs);
+  initializeApp(); // ← Initialize immediately if cached
 }
-
-// Populate the initial list of songs
-const sortedSongsMap = {
-  title: [...parsedSongData],
-  artist: [...parsedSongData],
-  genre: [...parsedSongData],
-  year: [...parsedSongData],
-};
-
 
 
 /* note: you may get a CORS error if you try fetching this locally (i.e., directly from a
@@ -725,11 +735,5 @@ function calculatePlaylistInfo() {
 
 // end of playlist view functions
 
-// initialization functions
-document.addEventListener('DOMContentLoaded', function () {
-  search();
 
-  initializeHome();
-  calculatePlaylistInfo();
-});
 
