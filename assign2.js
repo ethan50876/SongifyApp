@@ -81,32 +81,27 @@ fetch('artists.json')
 
 // Song API fetching/parsing to JS object
 let parsedSongData;
+const storedSongs = localStorage.getItem('songs.json');
 
-
-function loadSongData() {
-  const storedSongs = localStorage.getItem('songs.json');
-
-  if (!storedSongs) {
-    return fetch(api)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        localStorage.setItem('songs.json', JSON.stringify(data));
-        parsedSongData = data;
-        return data;
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  } else {
-    parsedSongData = JSON.parse(storedSongs);
-    return Promise.resolve(parsedSongData);
-  }
+if (!storedSongs) {
+  fetch(api)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      localStorage.setItem('songs.json', JSON.stringify(data));
+      parsedSongData = data;
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+} else {
+  parsedSongData = JSON.parse(storedSongs);
 }
+
 
 
 /* note: you may get a CORS error if you try fetching this locally (i.e., directly from a
@@ -725,16 +720,25 @@ function calculatePlaylistInfo() {
 
 // initialization functions
 document.addEventListener('DOMContentLoaded', function () {
-  loadSongData().then(() => {
-    sortedSongsMap = {
-      title: [...parsedSongData],
-      artist: [...parsedSongData],
-      genre: [...parsedSongData],
-      year: [...parsedSongData],
-    };
-    
-    search();
-    initializeHome();
-    calculatePlaylistInfo();
-  });
+  // Wait for parsedSongData to be loaded before initializing
+  function waitForData() {
+    if (parsedSongData) {
+      // Data is loaded, initialize the app
+      const sortedSongsMap = {
+        title: [...parsedSongData],
+        artist: [...parsedSongData],
+        genre: [...parsedSongData],
+        year: [...parsedSongData],
+      };
+      
+      search();
+      initializeHome();
+      calculatePlaylistInfo();
+    } else {
+      // Data not loaded yet, check again in 50ms
+      setTimeout(waitForData, 50);
+    }
+  }
+  
+  waitForData();
 });
