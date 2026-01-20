@@ -751,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     // Data is available, initialize normally
     search();
-    initializeHome();
+    initializeApp();
     calculatePlaylistInfo();
   }
 });
