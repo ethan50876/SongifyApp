@@ -94,7 +94,6 @@ if (!storedSongs) {
     .then(data => {
       localStorage.setItem('songs.json', JSON.stringify(data));
       parsedSongData = data;
-      location.reload();
     })
     .catch(error => {
       console.error('Error fetching data:', error);
