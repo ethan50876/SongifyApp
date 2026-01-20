@@ -558,8 +558,10 @@ function initializeHome() {
 
 function initializeTopSongs() {
 
-  // list of the top 15 songs
-  const topSongs = parsedSongData.sort((a, b) => b.details.popularity - a.details.popularity).slice(0, 15);
+  // Create a COPY of the array before sorting to avoid mutating the original
+  const topSongs = [...parsedSongData]
+    .sort((a, b) => b.details.popularity - a.details.popularity)
+    .slice(0, 15);
 
   const topSongsList = document.querySelector('#top-songs-list');
   // creates a list element for each song
