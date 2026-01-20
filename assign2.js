@@ -748,11 +748,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!parsedSongData) {
     // Data is still loading, refresh once
     setTimeout(() => window.location.reload(), 500);
-  } else {
-    // Data is available, initialize normally
-    search();
-    initializeApp();
-    calculatePlaylistInfo();
   }
+
 });
 
