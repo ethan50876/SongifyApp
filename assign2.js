@@ -83,7 +83,22 @@ fetch('artists.json')
 let parsedSongData;
 const storedSongs = localStorage.getItem('songs.json');
 
+function initializeApp() {
+  // Populate the initial list of songs
+  sortedSongsMap = {
+    title: [...parsedSongData],
+    artist: [...parsedSongData],
+    genre: [...parsedSongData],
+    year: [...parsedSongData],
+  };
+  
+  search();
+  initializeHome();
+  calculatePlaylistInfo();
+}
+
 if (!storedSongs) {
+  // First time - fetch from API
   fetch(api)
     .then(response => {
       if (!response.ok) {
@@ -94,12 +109,22 @@ if (!storedSongs) {
     .then(data => {
       localStorage.setItem('songs.json', JSON.stringify(data));
       parsedSongData = data;
+      // Initialize after data is loaded
+      initializeApp();
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
 } else {
+  // Data exists in localStorage - use it
   parsedSongData = JSON.parse(storedSongs);
+  // Wait for DOM to be ready, then initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    // DOM already loaded
+    initializeApp();
+  }
 }
 
 // Populate the initial list of songs
