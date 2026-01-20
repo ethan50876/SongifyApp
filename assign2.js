@@ -102,6 +102,14 @@ if (!storedSongs) {
   parsedSongData = JSON.parse(storedSongs);
 }
 
+// Populate the initial list of songs
+const sortedSongsMap = {
+  title: [...parsedSongData],
+  artist: [...parsedSongData],
+  genre: [...parsedSongData],
+  year: [...parsedSongData],
+};
+
 
 
 /* note: you may get a CORS error if you try fetching this locally (i.e., directly from a
@@ -146,7 +154,6 @@ let filters = { title: true, artist: false, genre: false };
 let ascending = false;
 let filteredSongs = [];
 let playlist = [];
-let sortedSongsMap; 
 
 // Function to filter songs based on user input
 function filterSongs(parsedSongData, titleInput, artistInput, genreInput, filters) {
@@ -720,25 +727,9 @@ function calculatePlaylistInfo() {
 
 // initialization functions
 document.addEventListener('DOMContentLoaded', function () {
-  // Wait for parsedSongData to be loaded before initializing
-  function waitForData() {
-    if (parsedSongData) {
-      // Data is loaded, initialize the app
-      const sortedSongsMap = {
-        title: [...parsedSongData],
-        artist: [...parsedSongData],
-        genre: [...parsedSongData],
-        year: [...parsedSongData],
-      };
-      
-      search();
-      calculatePlaylistInfo();
-      initializeHome();
-    } else {
-      // Data not loaded yet, check again in 50ms
-      setTimeout(waitForData, 50);
-    }
-  }
-  
-  waitForData();
+  search();
+
+  initializeHome();
+  calculatePlaylistInfo();
 });
+
