@@ -19,6 +19,8 @@ To Run
 
 Click on the above pages link
 
+IF THE SONG DATA IS NOT LOADING, PLEASE APPLY THE FIX BELOW
+
 Since this web app is deployed using github pages and the API is provided by a professor, it is not considered by most browsers to be safe and will not cache, load and display the song data. 
 
 To fix this, turn off the tracking prevention and safety warnings and reload the page
