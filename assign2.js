@@ -576,74 +576,26 @@ function initializeTopSongs() {
 }
 
 function initializeTopGenres() {
-
-  const genreCounts = {}; // Number of occurrences of each genre
-
-  parsedSongData.forEach(song => {
-
-    if (!genreCounts[song.genre.name]) {
-      // first genre occurance
-      genreCounts[song.genre.name] = 1;
-    } else {
-      // adds occurance of genre
-      genreCounts[song.genre.name]++;
-    }
-  });
-
-  let topGenres = Object.entries(genreCounts).map(([genre, count]) => ({ genre, count }));
-  // sorts genres by count
-  topGenres.sort((a, b) => b.count - a.count);
-
-  // takes the top 15 genres
-  topGenres = topGenres.slice(0, 15);
-
-  // ul element
+  const genreCounts = {}; 
+  // ... your counting logic ...
+  
   const topGenresList = document.querySelector('#top-genres-list');
-  // creates list element for each genre
+  topGenresList.innerHTML = ''; // Add this line
+  
   topGenres.forEach(genreObj => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${genreObj.genre} (${genreObj.count})`;
-    topGenresList.appendChild(listItem);
-
-    // applies genre filter
-    listItem.addEventListener('click', function() {
-      selectFilter("genre", genreObj.genre);
-    });
+    // ... rest of code
   });
 }
 
 function initializeTopArtists() {
-  const artistCounts = {}; // Number of occurrences of each artist
-
-  parsedSongData.forEach(song => {
-    if (!artistCounts[song.artist.name]) {
-      // first occurance of artist
-      artistCounts[song.artist.name] = 1;
-    } else {
-      // adds artist occurance
-      artistCounts[song.artist.name]++;
-    }
-  });
-
-  let topArtists = Object.entries(artistCounts).map(([artist, count]) => ({ artist, count }));
-  // Sort the top artists by count
-  topArtists.sort((a, b) => b.count - a.count);
-
-  // takes the top 15 artists from list
-  topArtists = topArtists.slice(0, 15);
-
-  // ul element
+  const artistCounts = {};
+  // ... your counting logic ...
+  
   const topArtistsList = document.querySelector('#top-artists-list');
-  // creates li element for each artist
+  topArtistsList.innerHTML = ''; // Add this line
+  
   topArtists.forEach(artistObj => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${artistObj.artist} (${artistObj.count})`;
-    topArtistsList.appendChild(listItem);
-
-    // applies artist filter
-    listItem.addEventListener('click', function() {
-      selectFilter("artist", artistObj.artist);
-    });
+    // ... rest of code
   });
 }
 
