@@ -83,6 +83,21 @@ fetch('artists.json')
 let parsedSongData;
 const storedSongs = localStorage.getItem('songs.json');
 
+// Function to initialize the app after data is loaded
+function initializeApp() {
+  // Populate the initial list of songs
+  const sortedSongsMap = {
+    title: [...parsedSongData],
+    artist: [...parsedSongData],
+    genre: [...parsedSongData],
+    year: [...parsedSongData],
+  };
+  
+  search();
+  initializeHome();
+  calculatePlaylistInfo();
+}
+
 if (!storedSongs) {
   fetch(api)
     .then(response => {
@@ -94,22 +109,17 @@ if (!storedSongs) {
     .then(data => {
       localStorage.setItem('songs.json', JSON.stringify(data));
       parsedSongData = data;
+      // Initialize the app after data is loaded
+      initializeApp();
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
 } else {
   parsedSongData = JSON.parse(storedSongs);
+  // Initialize the app immediately since data is already available
+  initializeApp();
 }
-
-// Populate the initial list of songs
-const sortedSongsMap = {
-  title: [...parsedSongData],
-  artist: [...parsedSongData],
-  genre: [...parsedSongData],
-  year: [...parsedSongData],
-};
-
 
 
 /* note: you may get a CORS error if you try fetching this locally (i.e., directly from a
@@ -727,9 +737,7 @@ function calculatePlaylistInfo() {
 
 // initialization functions
 document.addEventListener('DOMContentLoaded', function () {
-  search();
-
-  initializeHome();
-  calculatePlaylistInfo();
+  // App will be initialized by initializeApp() after data loads
+  // This just ensures the DOM is ready
 });
 
