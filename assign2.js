@@ -9,7 +9,7 @@ from Randy Connolly at Mount Royal University.
 
 
 
-const api = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
+const api = './songs-nested.json';
 
 
 // INITIAL SETUP SECTION
