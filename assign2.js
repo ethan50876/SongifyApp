@@ -736,6 +736,7 @@ document.addEventListener('DOMContentLoaded', function () {
     search();
     initializeHome();
     calculatePlaylistInfo();
+    window.location.reload()
   }
 });
 
