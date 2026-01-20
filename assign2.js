@@ -127,14 +127,6 @@ if (!storedSongs) {
   }
 }
 
-// Populate the initial list of songs
-const sortedSongsMap = {
-  title: [...parsedSongData],
-  artist: [...parsedSongData],
-  genre: [...parsedSongData],
-  year: [...parsedSongData],
-};
-
 
 
 /* note: you may get a CORS error if you try fetching this locally (i.e., directly from a
