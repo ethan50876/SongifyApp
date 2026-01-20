@@ -745,10 +745,10 @@ function calculatePlaylistInfo() {
 // initialization functions
 document.addEventListener('DOMContentLoaded', function () {
   // Check if we just loaded data for the first time
-  // if (!parsedSongData) {
-  //   // Data is still loading, refresh once
-  //   setTimeout(() => window.location.reload(), 500);
-  // }
+  if (!parsedSongData) {
+    // Data is still loading, refresh once
+    setTimeout(() => window.location.reload(), 500);
+  }
 
 });
 
